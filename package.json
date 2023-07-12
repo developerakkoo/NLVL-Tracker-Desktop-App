@@ -1,0 +1,30 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.3.1",
+    "electron-packager": "^17.1.1",
+    "express": "^4.18.2",
+    "googleapis": "^120.0.0",
+    "moment": "^2.29.4",
+    "node-notifier": "^10.0.1",
+    "puppeteer": "^19.7.2",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "run": "^1.4.0"
+  },
+  "devDependencies": {
+    "electron": "^25.2.0"
+  }
+}

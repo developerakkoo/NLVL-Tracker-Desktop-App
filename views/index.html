@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nlvl Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      text-align: center;
+    }
+    .button-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .button {
+      padding: 10px 20px;
+      background-color: var(--button-bg-color);
+      color: var(--button-text-color);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .button:hover {
+      background-color: var(--button-bg-color-hover);
+      color: var(--button-text-color-hover);
+    }
+    /* Light mode */
+    :root {
+      --bg-color: #f2f2f2;
+      --text-color: #333;
+      --button-bg-color: #2196F3;
+      --button-text-color: #fff;
+      --button-bg-color-hover: #0c7cd5;
+      --button-text-color-hover: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Nlvl Tracker Data Collection Tool</h1>
+    <div class="button-container">
+      <button class="button" id="startButton">Start</button>
+    </div>
+    <br>
+    <br>
+    <div>
+      <p>
+        <b>NOTE:</b> <br>
+        <br>
+        1. To start data collection press <b>"Start"</b> button.<br>
+        <br>
+        2.  If something went wrong press the <b>"Start"</b> button again.
+        <br>
+        <br>
+        3. To stop data collection simply <b>"Close"</b> the app.
+      </p>
+    </div>
+  <script>
+    const startButton = document.getElementById('startButton');
+
+    startButton.addEventListener('click', async() => {
+      // Add your start button functionality here
+      console.log('Start button clicked');
+
+      const filePath = await window.electronAPI.openFile()
+    });
+  </script>
+</body>
+
+</html>
