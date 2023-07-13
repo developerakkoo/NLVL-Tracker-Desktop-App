@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nlvl Tracker</title>
   <style>
@@ -45,10 +46,6 @@
     :root {
       --bg-color: #f2f2f2;
       --text-color: #333;
-      --button-bg-color: #2196F3;
-      --button-text-color: #fff;
-      --button-bg-color-hover: #0c7cd5;
-      --button-text-color-hover: #fff;
     }
   </style>
 </head>
@@ -57,7 +54,7 @@
   <div class="container">
     <h1>Nlvl Tracker Data Collection Tool</h1>
     <div class="button-container">
-      <button class="button" id="startButton">Start</button>
+      <button class="w3-btn w3-round-large w3-deep-purple" id="startButton">Start</button>
     </div>
     <br>
     <br>
@@ -78,6 +75,7 @@
 
     startButton.addEventListener('click', async() => {
       // Add your start button functionality here
+      // alert("Data Collection Started!");
       console.log('Start button clicked');
 
       const filePath = await window.electronAPI.openFile()
