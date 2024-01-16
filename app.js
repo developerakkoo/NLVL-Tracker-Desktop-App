@@ -1,4 +1,5 @@
 const moment = require('moment');
+const {url} = require('./constant')
 const axios = require('axios');
 const {google}= require('googleapis');
 const key = require('./keys.json');
@@ -299,6 +300,7 @@ function writeToScreen(message,reqNo){
     }
     }
     //if meta data length = 49 and data 1 and data 26 and nifty data is defined then
+    // console.log('metadata length',metaData.length);
     if (metaData.length == 49 && (data1 == undefined || data26 == undefined || nifty50Data == undefined ) ) {
       metaData = []
       // testWebSocket()
@@ -523,7 +525,7 @@ let data50 = {SYMBOL:stocksData[50][0],LTP: stocksData[50][1],CHNG: stocksData[5
     let config10 = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'https://api.niftyleveltracker.in/App/api/v1/scrapData',//https://api.niftyleveltracker.in/App/api/v1/scrapData, Local: http://localhost:8000/App/api/v1/scrapData
+        url: `${url}/App/api/v1/scrapData`,//https://api.niftyleveltracker.in/App/api/v1/scrapData, Local: http://localhost:8000/App/api/v1/scrapData
         headers: { 
             'Content-Type': 'application/json'
         },
@@ -559,7 +561,7 @@ let data = '';
 let config = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: 'https://api.niftyleveltracker.in/App/api/v1/getScrapData/',//https://api.niftyleveltracker.in/App/api/v1/getScrapData/, Local: 'http://localhost:8000/App/api/v1/getScrapData/
+  url: `${url}/App/api/v1/getScrapData`,//https://api.niftyleveltracker.in/App/api/v1/getScrapData/, Local: 'http://localhost:8000/App/api/v1/getScrapData/
   headers: {date:date.toString(),time: time.toString()},
   data : data
 };
@@ -570,11 +572,11 @@ axios.request(config)
   covert(response.data,1)
 })
 .catch((error) => {
-  console.log('566:',error.response.data.message);
+  console.log('573:',error);
 });
 // Sheet 2 //
   } catch (error) {
-    console.log('573:ERROR While Updating Sheet 1',error);
+    console.log('577:ERROR While Updating Sheet 1',error);
   }
 }
 
@@ -584,7 +586,7 @@ axios.request(config)
   try {
     // console.log("sheet2",stocksData[0]);
     // console.log('sheet2',`symbole: ${stocksData[0][0]},open: ${stocksData[0][1]},high: ${stocksData[0][2]}low: ${stocksData[0][3]},preClose: ${stocksData[0][4]},LTP: ${stocksData[0][5]},chang: ${stocksData[0][6]},%chang: ${stocksData[0][7]},volume: ${stocksData[0][8]}`);
-    const time1 = moment().subtract(20,"m").format('hh.mm')
+    const time1 = moment().subtract(20,"m").format('hh.mm');
       const gsApi = google.sheets({version:'v4',auth:client});
       const updateOption1= {
       spreadsheetId:'1iA8gKAehpYPaI8XMb5PhE6dFs0HTxNohZQHizScRk84', // spreadsheetId
@@ -593,7 +595,7 @@ axios.request(config)
       resource: {values:stocksData}
   };
   let res1 = await gsApi.spreadsheets.values.update(updateOption1); // post
-  console.log("588: >>>> Sheet 2 updated",res1.status);  
+  console.log("596: >>>> Sheet 2 updated",res1.status);  
   //Get Data for Sheet 3//
   const date =moment().format('DD-MM-YY') //today date 
 
@@ -602,18 +604,18 @@ axios.request(config)
 let configA = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: 'https://api.niftyleveltracker.in/App/api/v1/getScrapData20',//http://localhost:8000/App/api/v1/getScrapData20
+  url: `${url}/App/api/v1/getScrapData20`,//http://localhost:8000/App/api/v1/getScrapData20
   headers: { date:date.toString(),time1: time1.toString()},
   data : dataA
 };
 
 axios.request(configA)
 .then((response) => {
-  console.log(`604: Get request for sheet 3 with time ${time1}`);
+  console.log(`612: Get request for sheet 3 with time ${time1}`);
   covert(response.data,2)
 })
 .catch((error) => {
-  console.log('611:',error.response.data.message);
+  console.log('616:',error);
 });
 // Sheet 3//
   } catch (error) {
@@ -631,9 +633,9 @@ axios.request(configA)
             resource: {values:stocksData}
         };
         let res1 = await gsApi.spreadsheets.values.update(updateOption1); // post
-        console.log("629: >>>> Sheet 3 updated",res1.status);
+        console.log("634: >>>> Sheet 3 updated",res1.status);
     } catch (error) {
-        console.log('631: ERROR While Updating Sheet 3',error);
+        console.log('636: ERROR While Updating Sheet 3',error);
         }
     }
 

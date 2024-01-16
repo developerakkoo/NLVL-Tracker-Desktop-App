@@ -1,15 +1,16 @@
 const {app,BrowserWindow,ipcMain, dialog} = require('electron');
 const path = require('path');
 const isMac = process.platform === 'darwin';
-const  {main} = require('./app');
-const notifier = require('node-notifier');
+const  {testWebSocket} = require('./app');
+// const notifier = require('node-notifier');
 async function handleFileOpen () {
-    notifier.notify({
-        appName: "com.NlvlTracker.id", 
-        title: 'Nlvl Tracker',
-        message: 'Data Collection Started'
-        });
-        main()
+    // notifier.notify({
+    //     appName: "com.NlvlTracker.id", 
+    //     title: 'Nlvl Tracker',
+    //     message: 'Data Collection Started'
+    //     });
+    testWebSocket()
+        // main()
     }
 
 function Boot(){
