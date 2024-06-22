@@ -1,9 +1,10 @@
 const axios = require("axios");
 const moment = require("moment");
 const { google } = require("googleapis");
-const { notify } = require("./utils/notification.util");
-const { covert } = require("./utils/dataConvertor.util");
-const { url, sheet2UpdateTime, sheet3UpdateTime } = require("./constant");
+const { spreadsheetId } = require("../keys.json");
+const { notify } = require("./notification.util");
+const { client } = require("../config/googleSheet.config");
+const { url, sheet2UpdateTime, sheet3UpdateTime } = require("../constant");
 
 //insert into sheet 1
 exports.gsRun = async (client, stocksData) => {
@@ -801,7 +802,7 @@ exports.gsRun = async (client, stocksData) => {
     // console.log("sheet1",stocksData[0]);
     // console.log('sheet1',`symbole: ${stocksData[0][0]},open: ${stocksData[0][1]},high: ${stocksData[0][2]}low: ${stocksData[0][3]},preClose: ${stocksData[0][4]},LTP: ${stocksData[0][5]},chang: ${stocksData[0][6]},%chang: ${stocksData[0][7]},volume: ${stocksData[0][8]},value: ${stocksData[0][9]}`);
     const updateOption = {
-      spreadsheetId: "1iA8gKAehpYPaI8XMb5PhE6dFs0HTxNohZQHizScRk84", // spreadsheetId
+      spreadsheetId, // spreadsheetId
       range: "Data!A2",
       valueInputOption: "USER_ENTERED",
       resource: { values: stocksData },
@@ -827,7 +828,7 @@ exports.gsRun = async (client, stocksData) => {
       .request(config)
       .then((response) => {
         // console.log(response.data);
-        covert(response.data, 1);
+        convert(response.data, 1);
       })
       .catch((error) => {
         console.log("573:", error);
@@ -837,7 +838,6 @@ exports.gsRun = async (client, stocksData) => {
     console.log("577:ERROR While Updating Sheet 1", error);
   }
 };
-
 
 /**
  * Updates the Google Sheets with the provided stocks data for Sheet 2.
@@ -849,14 +849,14 @@ exports.gsRun = async (client, stocksData) => {
  *
  * @throws {Error} - Throws an error if there is an issue updating the Sheet 2.
  */
-exports.gsRun2 = async (client, stocksData) => {
+async function gsRun2(client, stocksData){
   try {
     // console.log("sheet2",stocksData[0]);
     // console.log('sheet2',`symbole: ${stocksData[0][0]},open: ${stocksData[0][1]},high: ${stocksData[0][2]}low: ${stocksData[0][3]},preClose: ${stocksData[0][4]},LTP: ${stocksData[0][5]},chang: ${stocksData[0][6]},%chang: ${stocksData[0][7]},volume: ${stocksData[0][8]}`);
     const time1 = moment().subtract(sheet3UpdateTime, "m").format("hh.mm");
     const gsApi = google.sheets({ version: "v4", auth: client });
     const updateOption1 = {
-      spreadsheetId: "1iA8gKAehpYPaI8XMb5PhE6dFs0HTxNohZQHizScRk84", // spreadsheetId
+      spreadsheetId, // spreadsheetId
       range: "Data2!A2",
       valueInputOption: "USER_ENTERED",
       resource: { values: stocksData },
@@ -881,7 +881,7 @@ exports.gsRun2 = async (client, stocksData) => {
       .request(configA)
       .then((response) => {
         console.log(`2354: Get request for sheet 3 with time ${time1}`);
-        covert(response.data, 2);
+        convert(response.data, 2);
       })
       .catch((error) => {
         console.log("2358:", error);
@@ -902,11 +902,11 @@ exports.gsRun2 = async (client, stocksData) => {
  *
  * @throws {Error} - Throws an error if there is an issue updating the Sheet 3.
  */
-exports.gsRun4 = async (client, stocksData) => {
+async function gsRun4(client, stocksData) {
   try {
     const gsApi = google.sheets({ version: "v4", auth: client });
     const updateOption1 = {
-      spreadsheetId: "1iA8gKAehpYPaI8XMb5PhE6dFs0HTxNohZQHizScRk84", // spreadsheetId
+      spreadsheetId, // spreadsheetId
       range: "Data3!A2",
       valueInputOption: "USER_ENTERED",
       resource: { values: stocksData },
@@ -918,3 +918,44 @@ exports.gsRun4 = async (client, stocksData) => {
     console.log("2378: ERROR While Updating Sheet 3", error);
   }
 };
+
+/**
+ * Converts the data received from the API into a format suitable for the database.
+ *
+ * @param {Object} data - The data received from the API.
+ * @param {number} funcNu - The function number to determine which function to run.
+ * @param {Object} client - The google sheet client.
+ * @param {Function} gsRun2 - The function to run if funcNu is 1.
+ * @param {Function} gsRun4 - The function to run if funcNu is 2.
+ *
+ * @returns {void}
+ */
+function convert(data, funcNu) {
+  try {
+    let GetStock = data.map((item) => [
+      item.SYMBOL,
+      item.LTP,
+      item.CHNG,
+      item.CHANGPercentage,
+      item.OPEN,
+      item.PREVCLOSE,
+      item.HIGH,
+      item.LOW,
+      item.VOLUME,
+      item.VALUE,
+      item.Date,
+      item.Time,
+    ]);
+    console.log("convert: Data converted >>>");
+    if (funcNu == 1) {
+      gsRun2(client, GetStock);
+    }
+    if (funcNu == 2) {
+      gsRun4(client, GetStock);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+

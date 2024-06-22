@@ -1,6 +1,6 @@
 const { mainFunctionTimer } = require("./constant");
 const { fetchYahooFinanceData } = require("./app");
-const { covert1 } = require("./utils/dataConvertor.util");
+const { convert1 } = require("./utils/dataConvertor.util");
 const myInterval = setInterval(App, mainFunctionTimer);
 
 /**
@@ -34,13 +34,13 @@ async function writeToSheet() {
     console.log("18: covert Data For Sheet1");
 
     // Convert the fetched data to the required format for Sheet 1
-    covert1(DATA, 0);
+    convert1(DATA, 0);
 
     // Update Sheet 1 with the converted data
     // ...
   } catch (error) {
     console.log(
-      "23: Internet Speed Is SLOW Or Server Not Responding",
+      "43: Internet Speed Is SLOW Or Server Not Responding",
       error.message
     );
   }
