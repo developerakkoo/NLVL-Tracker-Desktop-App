@@ -11,7 +11,7 @@ const { App } = require("./index");
  * @returns {void}
  */
 async function handleFileOpen() {
-  App();
+    App();
 }
 
 /**
@@ -22,17 +22,17 @@ async function handleFileOpen() {
  * @returns {void}
  */
 function Boot() {
-  const mainWindow = new BrowserWindow({
-    title: "Nlvl Tracker", // The title displayed in the title bar of the window.
-    width: 600, // The width of the window in pixels.
-    height: 500, // The height of the window in pixels.
-    webPreferences: {
-      preload: path.join(__dirname, "preload.js"), // The path to the preload script.
-    },
-  });
+    const mainWindow = new BrowserWindow({
+        title: "Nlvl Tracker", // The title displayed in the title bar of the window.
+        width: 600, // The width of the window in pixels.
+        height: 500, // The height of the window in pixels.
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"), // The path to the preload script.
+        },
+    });
 
-  // Load the index.html file into the main window.
-  mainWindow.loadFile(path.join(__dirname, "./views/index.html"));
+    // Load the index.html file into the main window.
+    mainWindow.loadFile(path.join(__dirname, "./views/index.html"));
 }
 
 /**
@@ -43,20 +43,20 @@ function Boot() {
  * @returns {void}
  */
 app.whenReady().then(() => {
-  // Register an IPC handler for the 'dialog:openFile' event.
-  // When this event is received, the 'handleFileOpen' function will be called.
-  ipcMain.handle("dialog:openFile", handleFileOpen);
+    // Register an IPC handler for the 'dialog:openFile' event.
+    // When this event is received, the 'handleFileOpen' function will be called.
+    ipcMain.handle("dialog:openFile", handleFileOpen);
 
-  Boot(); // Initialize the main window of the application.
+    Boot(); // Initialize the main window of the application.
 
-  // Listen for the 'activate' event.
-  // This event is emitted when the application is activated
-  app.on("activate", () => {
-    // If no windows are open, initialize a new main window.
-    if (BrowserWindow.getAllWindows().length === 0) {
-      Boot();
-    }
-  });
+    // Listen for the 'activate' event.
+    // This event is emitted when the application is activated
+    app.on("activate", () => {
+        // If no windows are open, initialize a new main window.
+        if (BrowserWindow.getAllWindows().length === 0) {
+            Boot();
+        }
+    });
 });
 
 /**
@@ -67,7 +67,7 @@ app.whenReady().then(() => {
  * @returns {void}
  */
 app.on("window-all-closed", () => {
-  if (!isMac) {
-    app.quit();
-  }
+    if (!isMac) {
+        app.quit();
+    }
 });

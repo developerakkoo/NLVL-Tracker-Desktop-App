@@ -14,7 +14,7 @@ const { contextBridge, ipcRenderer } = require("electron");
  * @returns {Promise<string[]>} - A promise that resolves to an array of file paths selected by the user.
  *
  * @example
- * // In the renderer process
+ *  In the renderer process
  * const { electronAPI } = window;
  * electronAPI.openFile()
  *   .then(filePaths => {
@@ -25,5 +25,5 @@ const { contextBridge, ipcRenderer } = require("electron");
  *   });
  */
 contextBridge.exposeInMainWorld("electronAPI", {
-  openFile: () => ipcRenderer.invoke("dialog:openFile"),
+    openFile: () => ipcRenderer.invoke("dialog:openFile"),
 });

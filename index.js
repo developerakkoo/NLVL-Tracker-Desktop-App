@@ -10,8 +10,8 @@ const myInterval = setInterval(App, mainFunctionTimer);
  * @returns {void}
  */
 function App() {
-  console.log("main");
-  writeToSheet();
+    console.log("main");
+    writeToSheet();
 }
 
 /**
@@ -21,29 +21,29 @@ function App() {
  * @returns {Promise<void>}
  */
 async function writeToSheet() {
-  // Fetch data from Yahoo Finance API
-  let DATA = await fetchYahooFinanceData();
+    // Fetch data from Yahoo Finance API
+    let DATA = await fetchYahooFinanceData();
 
-  // Check if there was an error fetching data
-  if (DATA.error) {
-    console.error("Error:", DATA.error);
-    return;
-  }
+    // Check if there was an error fetching data
+    if (DATA.error) {
+        console.error("Error:", DATA.error);
+        return;
+    }
 
-  try {
-    console.log("18: covert Data For Sheet1");
+    try {
+        console.log("18: covert Data For Sheet1");
 
-    // Convert the fetched data to the required format for Sheet 1
-    convert1(DATA, 0);
+        // Convert the fetched data to the required format for Sheet 1
+        convert1(DATA, 0);
 
-    // Update Sheet 1 with the converted data
-    // ...
-  } catch (error) {
-    console.log(
-      "43: Internet Speed Is SLOW Or Server Not Responding",
-      error.message
-    );
-  }
+        // Update Sheet 1 with the converted data
+        // ...
+    } catch (error) {
+        console.log(
+            "43: Internet Speed Is SLOW Or Server Not Responding",
+            error.message,
+        );
+    }
 }
 
 module.exports = { App };
