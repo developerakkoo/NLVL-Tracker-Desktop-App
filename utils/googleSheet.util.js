@@ -2,7 +2,7 @@ const axios = require("axios");
 const moment = require("moment");
 const { google } = require("googleapis");
 const { spreadsheetId } = require("../secret.json");
-const { notify } = require("./notification.util");
+// const { notify } = require("./notification.util");
 const { client } = require("../config/googleSheet.config");
 const { url, sheet2UpdateTime, sheet3UpdateTime } = require("../constant");
 
@@ -809,7 +809,7 @@ exports.gsRun = async (client, stocksData) => {
         };
         let res = await gsApi.spreadsheets.values.update(updateOption); // post
         console.log("2293: >>>> Sheet 1 updated", res.status);
-        notify("Sheets 1 Updated Successfully");
+        // notify("Sheets 1 Updated Successfully");
         //Get Data for Sheet 2//
         const date = moment().format("DD-MM-YY"); //today date
         const time = moment().subtract(sheet2UpdateTime, "m").format("hh.mm");
@@ -863,7 +863,7 @@ async function gsRun2(client, stocksData) {
         };
         let res1 = await gsApi.spreadsheets.values.update(updateOption1); // post
         console.log("2337: >>>> Sheet 2 updated", res1.status);
-        notify("Sheets 2 Updated Successfully");
+        // notify("Sheets 2 Updated Successfully");
         //Get Data for Sheet 3//
         const date = moment().format("DD-MM-YY"); //today date
 
@@ -913,7 +913,7 @@ async function gsRun4(client, stocksData) {
         };
         let res1 = await gsApi.spreadsheets.values.update(updateOption1); // post
         console.log("2374: >>>> Sheet 3 updated", res1.status);
-        notify("Sheets 3 Updated Successfully");
+        // notify("Sheets 3 Updated Successfully");
     } catch (error) {
         console.log("2378: ERROR While Updating Sheet 3", error);
     }

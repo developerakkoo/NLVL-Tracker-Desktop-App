@@ -18,7 +18,7 @@ exports.notify = (message) => {
                 silent: false, // Whether the notification should be silent or not
                 icon: path.join(__dirname, "../icon/appIcon.png"), // The path to the notification icon
                 hasReply: true, // Whether the notification should have a reply input field
-                timeoutType: "never", // The timeout behavior of the notification
+                // timeoutType: "never", // The timeout behavior of the notification
                 replyPlaceholder: "Reply Here", // The placeholder text for the reply input field
                 urgency: "critical", // The urgency level of the notification
                 closeButtonText: "Close Button", // The text for the close button

@@ -1,6 +1,7 @@
 const { mainFunctionTimer } = require("./constant");
 const { fetchYahooFinanceData } = require("./app");
 const { convert1 } = require("./utils/dataConvertor.util");
+const { notification_sheet } = require("./utils/notification_sheet.utils");
 const myInterval = setInterval(App, mainFunctionTimer);
 
 /**
@@ -12,6 +13,7 @@ const myInterval = setInterval(App, mainFunctionTimer);
 function App() {
     console.log("main");
     writeToSheet();
+    notification_sheet();
 }
 
 /**

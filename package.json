@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager ."
+    "build": "electron-packager . NlvlTracker "
   },
   "keywords": [],
   "author": "",
