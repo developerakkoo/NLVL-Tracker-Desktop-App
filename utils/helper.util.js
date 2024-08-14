@@ -1,6 +1,7 @@
 require("dotenv").config();
 const axios = require("axios");
 const moment = require("moment");
+const { RAPIDAPI_HOST, RAPIDAPI_KEY, RAPIDAPI_URL } = require("../secret.json");
 
 /**
  * Fetches stock data from Yahoo Finance using RapidAPI.
@@ -12,14 +13,14 @@ const moment = require("moment");
 exports.getStokesDataFromYahooFin = async (symbols) => {
     const options = {
         method: "GET",
-        url: process.env.RAPIDAPI_URL,
+        url: RAPIDAPI_URL,
         params: {
             region: "IN",
             symbols,
         },
         headers: {
-            "x-rapidapi-key": process.env.RAPIDAPI_KEY,
-            "x-rapidapi-host": process.env.RAPIDAPI_HOST,
+            "x-rapidapi-key": RAPIDAPI_KEY,
+            "x-rapidapi-host": RAPIDAPI_HOST,
         },
     };
 

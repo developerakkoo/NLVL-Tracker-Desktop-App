@@ -1,6 +1,6 @@
 module.exports = {
-    url: "http://localhost:9000",
-    // url: "https://api.niftyleveltracker.in",
+    // url: "http://localhost:9000",
+    url: "https://api.niftyleveltracker.in",
     mainFunctionTimer: 120000, //120000 for every 2min  call main function
     sheet2UpdateTime: 10,
     sheet3UpdateTime: 20,
