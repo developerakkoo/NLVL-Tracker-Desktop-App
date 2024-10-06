@@ -51,7 +51,7 @@ async function notification_sheet() {
 
         // Check if data is undefined or not an array
         if (!Array.isArray(data)) {
-            console.log("IsArray:empty");
+            console.log("IsArray:empty",data);
             return;
         }
 
